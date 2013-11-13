@@ -1,0 +1,52 @@
+just wanted to check in something since i was losing interest.. it currently works for ethernet based devices
+only, but its pretty obvious where serial routines would go.
+
+i support the complete command set as far as i know; and you should be able to do anything you can do from the remote, as well
+as query the current values for things.
+
+examples:
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume"
+Master Volume is currently "40"
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume" -v 00
+done.
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121:6048 -c "Master Volume" 
+Master Volume is currently "00"
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume" -v 4C
+done.
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume" -v 4E
+done.
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume" -v 4F
+done.
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Master Volume" 
+Master Volume is currently "4F"
+
+albert:onkyo.py phar$ python onkyo.py -l | grep "HDMI"
+"HDMI Output Select"
+
+albert:onkyo.py phar$ python onkyo.py -l | grep "Input"
+"Input Select"
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Input Select" 
+Input Select is currently "02"
+
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Input Select" -v "03"
+done.
+albert:onkyo.py phar$ python onkyo.py -h  192.168.1.121 -c "Input Select" 
+Input Select is currently "03"
+
+
+todo:
+	i dont currently tell you which keys, values or ranges are available for a given command so, sorry
+	write a useful usage()
+		some unsupported commands will return "N\A" but sometimes the receiever doesnt know what the fuck your talking about and just doesnt respond
+	i dont currently handle a timeout gracefully
+	implement a simple scripted server that consumes onkyo commands... only seems natural since many commands seem intended as integration
+	with peripherals and might assist in cool home theatre setups
+	notify onkyo of remotely exploitable protocol issue
